@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name" translatable="false">OwnWeather</string>
+    <string name="town" translatable="false">town</string>
+    <string name="today">today</string>
+    <string name="tommorow">tommorow</string>
+    <string name="Clear">Clear</string>
+    <string name="rain">Rain</string>
+    <string name="clouds">Clouds</string>
+    <string name="AverageTemp">Average temperature:</string>
+    <string name="min_temperature">Min temperature:</string>
+    <string name="max_temperature">Max temperature:</string>
+    <string name="night_temperature">Night temperature:</string>
+    <string name="morning_temperature">Morning temperature:</string>
+    <string name="evening_temperature">Evening temperature:</string>
+    <string name="presure">Pressure:</string>
+    <string name="humidity">Humidity:</string>
+</resources>
