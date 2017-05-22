@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#1ca8f4">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -19,19 +20,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/weatherDay"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
                 android:text="Today"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:textColor="#FFFF"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/weatherDate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
+                android:textColor="#FFFF"
                 android:text="June 24"
                 android:textSize="22sp" />
 
@@ -41,8 +46,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:gravity="bottom|center"
+                android:textColor="#FFFF"
                 android:text="21°"
-                android:textSize="48sp" />
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -50,6 +57,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:gravity="top|center"
+                android:textColor="#FFFF"
                 android:text="8°"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -61,15 +69,16 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/weatherStateImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 app:srcCompat="@drawable/sunny" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/weatherState"
                 android:layout_width="match_parent"
+                android:textColor="#FFFF"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
@@ -80,57 +89,73 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/day_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
-        android:text="@string/AverageTemp"
+        android:text="@string/DayTemp"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/min_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/min_temperature"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/max_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/max_temperature"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/night_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/night_temperature"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/morn_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/morning_temperature"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/evening_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/evening_temperature"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/humidity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/humidity"
         android:textSize="22dp" />
 
     <TextView
+        android:id="@+id/pressure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dp"
         android:text="@string/presure"
         android:textSize="22dp" />

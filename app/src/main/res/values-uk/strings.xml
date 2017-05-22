@@ -5,12 +5,12 @@
     <string name="Clear">Сонячно</string>
     <string name="rain">Дощ</string>
     <string name="clouds">Хмарно</string>
-    <string name="AverageTemp">Середня температура:</string>
-    <string name="evening_temperature">Температура Увечері:</string>
-    <string name="humidity">Вологість:</string>
-    <string name="max_temperature">Макс. температура:</string>
-    <string name="min_temperature">Мін. температура:</string>
-    <string name="morning_temperature">Температура Вранці:</string>
-    <string name="night_temperature">Температура вночі:</string>
-    <string name="presure">Тиск:</string>
+    <string name="DayTemp">Температура удень: </string>
+    <string name="evening_temperature">Температура Увечері: </string>
+    <string name="humidity">Вологість: </string>
+    <string name="max_temperature">Макс. температура: </string>
+    <string name="min_temperature">Мін. температура: </string>
+    <string name="morning_temperature">Температура Вранці: </string>
+    <string name="night_temperature">Температура вночі: </string>
+    <string name="presure">Тиск: </string>
 </resources>

@@ -36,20 +36,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         vh.max = (TextView) v.findViewById(R.id.weatherMaxTemp);
         vh.min  = (TextView) v.findViewById(R.id.weatherMinTemp);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context , WeatherActivity.class);
-                intent.pu("wm", wm);
-                context.startActivity(intent);
-            }
-        });
+
 
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyAdapter.ViewHolder holder, final int position) {
         holder.day.setText(Utils.getWeekDayName(context, wm.list.get(position).dt));
         holder.max.setText(Double.toString(wm.list.get(position).temp.max) + "°");
         holder.min.setText(Double.toString(wm.list.get(position).temp.min) + "°");
@@ -64,10 +57,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 holder.state.setText(context.getString(R.string.rain));
                 break;
             case "Clouds":
-                holder.icon.setImageResource(R.drawable.cloud_with_sun);
+                holder.icon.setImageResource(R.drawable.mostly_cloudy);
                 holder.state.setText(context.getString(R.string.clouds));
                 break;
         }
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WeatherActivity.class);
+                intent.putExtra("date", wm.list.get(position).dt);
+                intent.putExtra("dTemp", wm.list.get(position).temp.day);
+                intent.putExtra("eTemp", wm.list.get(position).temp.eve);
+                intent.putExtra("maxTemp", wm.list.get(position).temp.max);
+                intent.putExtra("minTemp", wm.list.get(position).temp.min);
+                intent.putExtra("nTemp", wm.list.get(position).temp.night);
+                intent.putExtra("mTemp", wm.list.get(position).temp.morn);
+                intent.putExtra("state", wm.list.get(position).weather.main);
+                intent.putExtra("hum", wm.list.get(position).humidity);
+                intent.putExtra("pres", wm.list.get(position).pressure);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -78,9 +88,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView day, state, max, min;
         ImageView icon;
+        View item;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            item = itemView;
         }
     }
 }

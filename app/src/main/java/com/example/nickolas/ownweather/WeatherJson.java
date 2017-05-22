@@ -35,7 +35,7 @@ public class WeatherJson {
                 Weather weather = new Weather();
                 weather.dt = obj.getLong("dt");
                 setTemp(weather, obj);
-                weather.presure = obj.getDouble("pressure");
+                weather.pressure = obj.getDouble("pressure");
                 weather.humidity = obj.getInt("humidity");
                 setWeather(weather, obj);
                 weather.speed = obj.getDouble("speed");

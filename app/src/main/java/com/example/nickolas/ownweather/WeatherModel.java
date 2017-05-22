@@ -26,7 +26,7 @@ public class WeatherModel {
 class Weather {
     long dt;
     Tempreture temp = new Tempreture();
-    double presure, speed;
+    double pressure, speed;
     int humidity, deg, clouds;
     Sky weather = new Sky();
 

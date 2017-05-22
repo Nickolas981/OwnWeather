@@ -27,4 +27,16 @@ public class Utils {
         res = Character.toUpperCase(res.charAt(0)) + res.substring(1);
         return res;
     }
+
+    public static String getDate(long mil) {
+        String res;
+
+        SimpleDateFormat dfm = new SimpleDateFormat("dd MMM");
+
+        Date date = new Date(mil * 1000);
+
+        res = dfm.format(date);
+
+        return res;
+    }
 }
