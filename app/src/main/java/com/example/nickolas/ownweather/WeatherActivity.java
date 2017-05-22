@@ -63,7 +63,10 @@ public class WeatherActivity extends AppCompatActivity {
         eveTemp.append(" " + Double.toString(i.getDoubleExtra("eTemp", 0)) + "°");
         mornTemp.append(" " + Double.toString(i.getDoubleExtra("mTemp", 0)) + "°");
         humidity.append(" " + Integer.toString(i.getIntExtra("hum", 0)));
-        pressure.append(" " + Double.toString(i.getDoubleExtra("pres", 0)));
+        Double d = i.getDoubleExtra("pres", 0);
+        int pr = d.intValue();
+        pressure.append(" " + Integer.toString(pr));
+
     }
 
     void setWeatherState(String s) {

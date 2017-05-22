@@ -74,7 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 intent.putExtra("mTemp", wm.list.get(position).temp.morn);
                 intent.putExtra("state", wm.list.get(position).weather.main);
                 intent.putExtra("hum", wm.list.get(position).humidity);
-                intent.putExtra("pres", wm.list.get(position).pressure);
+                intent.putExtra("pres", wm.list.get(position).pressure *  0.75);
                 context.startActivity(intent);
             }
         });

@@ -1,5 +1,7 @@
 package com.example.nickolas.ownweather;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,16 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,12 +24,14 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-//    static TextView test;
+    //    static TextView test;
     EditText editText;
     RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ProgressBar progressBar;
+    private WeatherModel model;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-
-
         editText = (EditText) findViewById(R.id.townET);
 //        test = (TextView) findViewById(R.id.testText);
         progressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
@@ -57,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -64,7 +63,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
+                MenuItem item1 = menu.findItem(R.id.action_geo);
+                item1.setVisible(true);
                 loadWeather();
+                break;
+            case R.id.action_geo:
+                String str = "geo:" + Double.toString(model.city.coordinates.lat)+ "," + Double.toString(model.city.coordinates.lon);
+                Uri.Builder builder = new Uri.Builder();
+                Uri uri = Uri.parse(str);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                startActivity(intent);
         }
         return false;
     }
@@ -73,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         new WeatherDownloadTask().execute(editText.getText().toString());
     }
 
-     void setAdapter(WeatherModel wm){
+    void setAdapter(WeatherModel wm) {
         mRecyclerView.setAdapter(new MyAdapter(wm, this));
     }
 
@@ -111,14 +120,12 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                WeatherModel model;
+
                 model = WeatherJson.toWeatherModel(obj);
                 setAdapter(model);
             }
         }
     }
-
-
 
 
 }
