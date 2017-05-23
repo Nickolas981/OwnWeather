@@ -7,11 +7,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,41 +52,57 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-        editText = (EditText) findViewById(R.id.townET);
-//        test = (TextView) findViewById(R.id.testText);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                loadWeather(place.getName().toString());
+            }
+
+            @Override
+            public void onError(Status status) {
+
+                Toast.makeText(MainActivity.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+
         progressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
     }
 
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        this.menu = menu;
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.action_search:
+//                MenuItem item1 = menu.findItem(R.id.action_geo);
+//                item1.setVisible(true);
+////                loadWeather();
+//                break;
+//            case R.id.action_geo:
+//                String str = "geo:" + Double.toString(model.city.coordinates.lat)+ "," + Double.toString(model.city.coordinates.lon);
+//                Uri.Builder builder = new Uri.Builder();
+//                Uri uri = Uri.parse(str);
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(uri);
+//                startActivity(intent);
+//        }
+//        return false;
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        this.menu = menu;
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                MenuItem item1 = menu.findItem(R.id.action_geo);
-                item1.setVisible(true);
-                loadWeather();
-                break;
-            case R.id.action_geo:
-                String str = "geo:" + Double.toString(model.city.coordinates.lat)+ "," + Double.toString(model.city.coordinates.lon);
-                Uri.Builder builder = new Uri.Builder();
-                Uri uri = Uri.parse(str);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                startActivity(intent);
-        }
-        return false;
-    }
-
-    void loadWeather() {
-        new WeatherDownloadTask().execute(editText.getText().toString());
+    void loadWeather(String s) {
+        new WeatherDownloadTask().execute(s);
     }
 
     void setAdapter(WeatherModel wm) {

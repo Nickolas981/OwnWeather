@@ -3,10 +3,6 @@
     package="com.example.nickolas.ownweather">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyA3To_H5Pq14VhHG7hY1GOULjS_erkFKoY"/>
-
 
 
     <application
@@ -23,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".WeatherActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD77a_fgRnjN_O2cnMHX6BcMS41gIIr8YQ"/>
     </application>
 
 </manifest>
