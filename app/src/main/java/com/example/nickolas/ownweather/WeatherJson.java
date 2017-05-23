@@ -36,6 +36,7 @@ public class WeatherJson {
                 weather.dt = obj.getLong("dt");
                 setTemp(weather, obj);
                 weather.pressure = obj.getDouble("pressure");
+
                 weather.humidity = obj.getInt("humidity");
                 setWeather(weather, obj);
                 weather.speed = obj.getDouble("speed");
@@ -55,6 +56,7 @@ public class WeatherJson {
             w.weather.id = weath.getInt("id");
             w.weather.main = weath.getString("main");
             w.weather.decription = weath.getString("description");
+            w.weather.icon = weath.getString("icon");
         } catch (JSONException e) {
             e.printStackTrace();
         }

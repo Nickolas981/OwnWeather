@@ -32,7 +32,7 @@ class Weather {
 
     class Sky {
         int id;
-        String main, decription;
+        String main, decription, icon;
     }
 
     class Tempreture {

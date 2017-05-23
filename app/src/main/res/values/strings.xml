@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">OwnWeather</string>
-    <string name="town" translatable="false">town</string>
+    <string name="search_hint">Please insert place</string>
     <string name="today">today</string>
     <string name="tommorow">tommorow</string>
-    <string name="Clear">Clear</string>
+    <string name="s01d">Sky is clear</string>
     <string name="rain">Rain</string>
     <string name="clouds">Clouds</string>
-    <string name="DayTemp">Day temperature: </string>
+    <string name="s03d">Scattered clouds</string>
+    <string name="day_temp">Day temperature: </string>
     <string name="min_temperature">Min temperature: </string>
     <string name="max_temperature">Max temperature: </string>
     <string name="night_temperature">Night temperature: </string>
@@ -14,4 +15,12 @@
     <string name="evening_temperature">Evening temperature: </string>
     <string name="presure">Pressure: </string>
     <string name="humidity">Humidity: </string>
+    <string name="search">Search</string>
+    <string name="s10d">Moderate rain</string>
+    <string name="s02d">Few clouds</string>
+    <string name="s04d">Broken clouds</string>
+    <string name="s09d">Shower rain</string>
+    <string name="s11d">Thunderstorm</string>
+    <string name="s13d">Snow</string>
+    <string name="s50d">Mist</string>
 </resources>

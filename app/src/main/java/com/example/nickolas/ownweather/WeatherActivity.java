@@ -11,7 +11,7 @@ public class WeatherActivity extends AppCompatActivity {
 
 
     ImageView weatherStateImage;
-    TextView    weatherState, weatherDate, weatherDay, minTemp, maxTemp, eveTemp, dayTemp, mornTemp,nightTemp, humidity, pressure;
+    TextView    weatherState, weatherDate, weatherDay, minTemp, maxTemp, eveTemp, dayTemp, mornTemp,nightTemp, humidity, pressure, maxHeader, minHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,12 @@ public class WeatherActivity extends AppCompatActivity {
         nightTemp = (TextView) findViewById(R.id.night_temperature);
         humidity = (TextView) findViewById(R.id.humidity);
         pressure = (TextView) findViewById(R.id.pressure);
+        maxHeader = (TextView) findViewById(R.id.max_temperature_header);
+        minHeader = (TextView) findViewById(R.id.min_temperature_header);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setWeatherState(intent.getStringExtra("state"));
         setDate(intent.getLongExtra("date", 0));
         setTemp(intent);
     }
@@ -58,32 +59,19 @@ public class WeatherActivity extends AppCompatActivity {
     void setTemp(Intent i){
         dayTemp.append(" " + Double.toString(i.getDoubleExtra("dTemp", 0)) + "°");
         minTemp.append(" " + Double.toString(i.getDoubleExtra("minTemp", 0)) + "°");
+        minHeader.setText(Double.toString(i.getDoubleExtra("minTemp", 0)) + "°");
         maxTemp.append(" " + Double.toString(i.getDoubleExtra("maxTemp", 0)) + "°");
+        maxHeader.setText(Double.toString(i.getDoubleExtra("maxTemp", 0)) + "°");
         nightTemp.append(" " + Double.toString(i.getDoubleExtra("nTemp", 0)) + "°");
         eveTemp.append(" " + Double.toString(i.getDoubleExtra("eTemp", 0)) + "°");
         mornTemp.append(" " + Double.toString(i.getDoubleExtra("mTemp", 0)) + "°");
         humidity.append(" " + Integer.toString(i.getIntExtra("hum", 0)));
+        weatherState.setText(i.getStringExtra("state"));
+        weatherStateImage.setImageResource(i.getIntExtra("photoId", 0));
         Double d = i.getDoubleExtra("pres", 0);
         int pr = d.intValue();
         pressure.append(" " + Integer.toString(pr));
 
-    }
-
-    void setWeatherState(String s) {
-        switch (s) {
-            case "Clear":
-                weatherStateImage.setImageResource(R.drawable.sunny);
-                weatherState.setText(getString(R.string.Clear));
-                break;
-            case "Rain":
-                weatherStateImage.setImageResource(R.drawable.rain);
-                weatherState.setText(getString(R.string.rain));
-                break;
-            case "Clouds":
-                weatherStateImage.setImageResource(R.drawable.mostly_cloudy);
-                weatherState.setText(getString(R.string.clouds));
-                break;
-        }
     }
 
 

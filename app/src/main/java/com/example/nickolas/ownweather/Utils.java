@@ -2,6 +2,7 @@ package com.example.nickolas.ownweather;
 
 import android.content.Context;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,5 +39,16 @@ public class Utils {
         res = dfm.format(date);
 
         return res;
+    }
+
+    public static int getResId(String resName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

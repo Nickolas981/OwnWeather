@@ -2,10 +2,10 @@
 <resources>
     <string name="today">Сегодня</string>
     <string name="tommorow">Завтра</string>
-    <string name="Clear">Солнечно</string>
+    <string name="s01d">Чистое небо</string>
     <string name="rain">Дождь</string>
     <string name="clouds">Облачно</string>
-    <string name="DayTemp">Дневная температура: </string>
+    <string name="day_temp">Дневная температура: </string>
     <string name="evening_temperature">Вечерняя температура: </string>
     <string name="humidity">Влажность: </string>
     <string name="max_temperature">Макс. температура: </string>
@@ -13,5 +13,15 @@
     <string name="morning_temperature">Утренняя температура: </string>
     <string name="night_temperature">Ночная температура: </string>
     <string name="presure">Давление: </string>
+    <string name="s10d">Умеренный дождь</string>
+    <string name="s03d">Рассеянные облака</string>
+    <string name="search">Поиск</string>
+    <string name="search_hint">Укажите место</string>
+    <string name="s02d">Малооблачно</string>
+    <string name="s04d">Сломанные облака</string>
+    <string name="s09d">Дождь</string>
+    <string name="s11d">Гроза</string>
+    <string name="s13d">Снег</string>
+    <string name="s50d">Туман</string>
 
 </resources>
