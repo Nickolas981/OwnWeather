@@ -3,6 +3,11 @@
     package="com.example.nickolas.ownweather">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyA3To_H5Pq14VhHG7hY1GOULjS_erkFKoY"/>
+
+
 
     <application
         android:allowBackup="true"

@@ -63,31 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.icon.setImageResource(Utils.getResId("d" + wm.list.get(position).weather.icon, R.drawable.class));
         intent.putExtra("photoId", Utils.getResId("d" + wm.list.get(position).weather.icon, R.drawable.class));
         holder.state.setText(context.getString(Utils.getResId("s" + wm.list.get(position).weather.icon, R.string.class)));
-//        holder.state.setText(wm.list.get(position).weather.decription);
-//        switch (wm.list.get(position).weather.decription){
-//            case "sky is clear":
-//                holder.icon.setImageResource(R.drawable.sunny);
-//                intent.putExtra("photoId", R.drawable.sunny);
-//                holder.state.setText(context.getString(R.string.s01d));
-//                break;
-//            case "light rain":
-//                holder.icon.setImageResource(R.drawable.light_rain);
-//                intent.putExtra("photoId", R.drawable.light_rain);
-//                holder.state.setText(context.getString(R.string.light_rain));
-//                break;
-//            case "moderate rain":
-//                holder.icon.setImageResource(R.drawable.rain);
-//                intent.putExtra("photoId", R.drawable.rain);
-//                holder.state.setText(context.getString(R.string.moderate_rain));
-//                break;
-//            case "scattered clouds":
-//                holder.icon.setImageResource(R.drawable.mostly_cloudy);
-//                intent.putExtra("photoId", R.drawable.mostly_cloudy);
-//                holder.state.setText(context.getString(R.string.s03d));
-//
-//
-//                break;
-//        }
+
         intent.putExtra("state", holder.state.getText().toString());
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
