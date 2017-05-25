@@ -1,4 +1,4 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

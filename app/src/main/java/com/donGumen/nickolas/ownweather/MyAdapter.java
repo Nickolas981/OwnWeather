@@ -1,4 +1,4 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +25,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.custom_weather_view, parent, false);
+        View v;
+        if (viewType == 1) {
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_today_weather_view, parent, false);
+        } else {
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.custom_weather_view, parent, false);
+        }
+
+
 
         ViewHolder vh = new ViewHolder(v);
 
@@ -41,8 +49,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+
+    @Override
     public void onBindViewHolder(final MyAdapter.ViewHolder holder, final int position) {
+
+
         holder.day.setText(Utils.getWeekDayName(context, wm.list.get(position).dt));
+        if (getItemViewType(position) == 1){
+            holder.day.append(", " +  Utils.getDate(wm.list.get(position).dt));
+        }
         holder.max.setText(Double.toString(wm.list.get(position).temp.max) + "°");
         holder.min.setText(Double.toString(wm.list.get(position).temp.min) + "°");
 
@@ -58,11 +82,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         intent.putExtra("pres", wm.list.get(position).pressure * 0.75);
 
 
+        String dd = "d" + wm.list.get(position).weather.icon.substring(0, 2) + "d";
+        String ss = "s" + wm.list.get(position).weather.icon.substring(0, 2) + "d";
 
+        holder.icon.setImageResource(Utils.getResId(dd, R.drawable.class));
+        intent.putExtra("photoId", Utils.getResId(dd, R.drawable.class));
+        holder.state.setText(context.getString(Utils.getResId(ss, R.string.class)));
 
-        holder.icon.setImageResource(Utils.getResId("d" + wm.list.get(position).weather.icon, R.drawable.class));
-        intent.putExtra("photoId", Utils.getResId("d" + wm.list.get(position).weather.icon, R.drawable.class));
-        holder.state.setText(context.getString(Utils.getResId("s" + wm.list.get(position).weather.icon, R.string.class)));
 
         intent.putExtra("state", holder.state.getText().toString());
         holder.item.setOnClickListener(new View.OnClickListener() {

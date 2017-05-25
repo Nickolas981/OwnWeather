@@ -1,22 +1,22 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
@@ -31,8 +31,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    static TextView test;
-    EditText editText;
     RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyLocationListener.SetUpLocationListener(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -69,26 +68,60 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        progressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
+        int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+        try {
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException ignored) {
+        }
+        progressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
     }
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        this.menu = menu;
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_search:
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                loadWeather(place.getName().toString());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Toast.makeText(MainActivity.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+
+            }
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+
+                int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+                try {
+                    Intent intent =
+                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                                    .build(this);
+                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException ignored) {
+                }
+
 //                MenuItem item1 = menu.findItem(R.id.action_geo);
 //                item1.setVisible(true);
-////                loadWeather();
-//                break;
+                break;
 //            case R.id.action_geo:
 //                String str = "geo:" + Double.toString(model.city.coordinates.lat)+ "," + Double.toString(model.city.coordinates.lon);
 //                Uri.Builder builder = new Uri.Builder();
@@ -96,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
 //                Intent intent = new Intent(Intent.ACTION_VIEW);
 //                intent.setData(uri);
 //                startActivity(intent);
-//        }
-//        return false;
-//    }
+        }
+        return false;
+    }
 
     void loadWeather(String s) {
         new WeatherDownloadTask().execute(s);
@@ -115,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
-
 
         @Override
         protected String doInBackground(String... params) {
@@ -144,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 model = WeatherJson.toWeatherModel(obj);
                 setAdapter(model);
             }

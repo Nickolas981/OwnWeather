@@ -5,9 +5,9 @@
         android:id="@+id/action_search"
         android:title="@string/search"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_geo"
-        android:title="geo"
-        app:showAsAction="ifRoom"
-        android:visible="false"/>
+    <!--<item-->
+        <!--android:id="@+id/action_geo"-->
+        <!--android:title="geo"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:visible="false"/>-->
 </menu>

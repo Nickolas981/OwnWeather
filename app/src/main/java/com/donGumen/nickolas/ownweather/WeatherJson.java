@@ -1,4 +1,4 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,6 @@ public class WeatherJson {
                 weather.dt = obj.getLong("dt");
                 setTemp(weather, obj);
                 weather.pressure = obj.getDouble("pressure");
-
                 weather.humidity = obj.getInt("humidity");
                 setWeather(weather, obj);
                 weather.speed = obj.getDouble("speed");

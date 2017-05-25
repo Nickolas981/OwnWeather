@@ -1,4 +1,4 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import java.util.ArrayList;
 

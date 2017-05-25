@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.nickolas.ownweather.WeatherActivity">
+    tools:context="com.donGumen.nickolas.ownweather.WeatherActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,12 +78,13 @@
             <TextView
                 android:id="@+id/weatherState"
                 android:layout_width="match_parent"
-                android:textColor="#FFFF"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical|center"
                 android:text="Clear"
-                android:textSize="26sp" />
+                android:textColor="#FFFF"
+                android:textSize="26sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

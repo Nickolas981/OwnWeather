@@ -1,4 +1,4 @@
-package com.example.nickolas.ownweather;
+package com.donGumen.nickolas.ownweather;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         Intent intent = getIntent();
-
+        getSupportActionBar().setElevation(0);
         weatherStateImage = (ImageView) findViewById(R.id.weatherStateImage);
         weatherState = (TextView) findViewById(R.id.weatherState);
         weatherDate = (TextView) findViewById(R.id.weatherDate);
