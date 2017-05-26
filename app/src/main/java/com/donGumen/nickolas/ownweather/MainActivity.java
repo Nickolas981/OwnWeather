@@ -19,6 +19,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.r0adkll.slidr.Slidr;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         MyLocationListener.SetUpLocationListener(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
         mRecyclerView.setHasFixedSize(true);

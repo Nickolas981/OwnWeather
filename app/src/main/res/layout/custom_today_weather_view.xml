@@ -67,8 +67,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:gravity="bottom|center"
-                    android:text=""
-                    android:textSize="56sp"
+                    android:text="18.16°"
+                    android:textSize="50sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -77,8 +77,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:gravity="top|center"
-                    android:text=""
-                    android:textSize="46sp" />
+                    android:text="12.13°"
+                    android:textSize="40sp" />
             </LinearLayout>
         </LinearLayout>
 

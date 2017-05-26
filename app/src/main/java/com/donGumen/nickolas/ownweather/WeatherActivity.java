@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.r0adkll.slidr.Slidr;
+
 public class WeatherActivity extends AppCompatActivity {
 
 
@@ -17,7 +19,7 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-
+        Slidr.attach(this);
         Intent intent = getIntent();
         getSupportActionBar().setElevation(0);
         weatherStateImage = (ImageView) findViewById(R.id.weatherStateImage);
