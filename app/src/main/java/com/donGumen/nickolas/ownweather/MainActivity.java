@@ -1,6 +1,7 @@
 package com.donGumen.nickolas.ownweather;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,21 +39,19 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private WeatherModel model;
     private Menu menu;
+    public static String name;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MyLocationListener.SetUpLocationListener(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -65,22 +64,26 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Status status) {
-
                 Toast.makeText(MainActivity.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
             }
 
         });
-
-
-        int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-        try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException ignored) {
-        }
         progressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+
+        getPreference();
+        if (name == null || name.equals("")){
+            int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+            try {
+                Intent intent =
+                        new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                                .build(this);
+                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException ignored) {
+            }
+        }else{
+            loadWeather(name);
+            getSupportActionBar().setTitle("OwnWeather (" + name + ")");
+        }
     }
 
     @Override
@@ -88,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                loadWeather(place.getName().toString());
+                name = place.getName().toString();
+                loadWeather(name);
+                getSupportActionBar().setTitle("OwnWeather (" + name + ")");
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 Toast.makeText(MainActivity.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
@@ -99,6 +104,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onStop() {
+        savePreference();
+        super.onStop();
+    }
+
+    void savePreference(){
+        sharedPreferences  = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPreferences.edit();
+        ed.putString("saved_text", name);
+        ed.commit();
+    }
+
+    void getPreference(){
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        name = sharedPreferences.getString("saved_text", "");
+    }
+
 
 
     @Override

@@ -14,6 +14,7 @@ public class Network {
 
     final static String QUERY_PARAM = "q";
     final static String BASE = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+    final static String CURRENT_BASE = "http://api.openweathermap.org/data/2.5/weather";
     final static String BASE_GEO = "api.openweathermap.org/data/2.5/forecast?";
 
     final static String APID = "appid";
@@ -38,6 +39,21 @@ public class Network {
                 .build();
         URL url = null;
 
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildURL(String name, boolean current){
+        Uri uri = Uri.parse(CURRENT_BASE).buildUpon()
+                .appendQueryParameter(QUERY_PARAM, name)
+                .appendQueryParameter(APID, "a1597f52960fc0627bf6c27a9e23e0e3")
+                .appendQueryParameter(UNITS, "metric")
+                .build();
+        URL url = null;
         try {
             url = new URL(uri.toString());
         } catch (MalformedURLException e) {

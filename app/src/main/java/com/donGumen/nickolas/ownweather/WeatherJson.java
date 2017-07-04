@@ -48,7 +48,7 @@ public class WeatherJson {
         }
     }
 
-    private static void setWeather(Weather w, JSONObject obj) {
+    public static void setWeather(Weather w, JSONObject obj) {
         try {
             JSONArray weather = obj.getJSONArray("weather");
             JSONObject weath = weather.getJSONObject(0);
@@ -56,6 +56,15 @@ public class WeatherJson {
             w.weather.main = weath.getString("main");
             w.weather.decription = weath.getString("description");
             w.weather.icon = weath.getString("icon");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setCurrentWeather(CurrentWeatherModel w, JSONObject object) {
+        try {
+            w.id = object.getJSONArray("weather").getJSONObject(0).getString("icon");
+            w.temp = object.getJSONObject("main").getDouble("temp");
         } catch (JSONException e) {
             e.printStackTrace();
         }
