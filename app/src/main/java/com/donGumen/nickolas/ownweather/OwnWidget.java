@@ -1,8 +1,10 @@
 package com.donGumen.nickolas.ownweather;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,9 +27,6 @@ import okhttp3.Response;
 public class OwnWidget extends AppWidgetProvider {
 
     private CurrentWeatherModel currentWeather = new CurrentWeatherModel();
-    private TextView temp;
-    private ImageView imageView;
-    private String state;
     private static RemoteViews v;
     AppWidgetManager a;
     int id;
@@ -48,6 +48,8 @@ public class OwnWidget extends AppWidgetProvider {
 //        }
         v = new RemoteViews(context.getPackageName(), R.layout.own_widget);
         c = context;
+        Intent intent =  new Intent(context, MainActivity.class);
+        v.setOnClickPendingIntent(R.id.weatherImage, PendingIntent.getActivity(context,1,intent, 0));
         a = appWidgetManager;
         id = appWidgetIds[0];
         appWidgetManager.updateAppWidget(appWidgetIds[0], v);
@@ -68,6 +70,9 @@ public class OwnWidget extends AppWidgetProvider {
         String dd = "d" + currentWeather.id.substring(0, 2) + "d";
         String ss = "s" + currentWeather.id.substring(0, 2) + "d";
         String state = c.getString(Utils.getResId(ss, R.string.class));
+        Calendar c = Calendar.getInstance();
+        String hour = Integer.toString(c.get(Calendar.HOUR));
+        String min = Integer.toString(c.get(Calendar.MINUTE));
         v.setTextViewText(R.id.weatherState, state);
         String temp = Double.toString(currentWeather.temp)  + "°";
         v.setImageViewResource(R.id.weatherImage,Utils.getResId(dd, R.drawable.class));

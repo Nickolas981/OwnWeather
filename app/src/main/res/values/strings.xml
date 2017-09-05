@@ -23,6 +23,4 @@
     <string name="s11d">Thunderstorm</string>
     <string name="s13d">Snow</string>
     <string name="s50d">Mist</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

@@ -24,13 +24,8 @@ public class Network {
     final static String CNT = "cnt";
 
 
-
-
-
-    public static URL buildURL(String lat, String lon){
-
-
-        Uri uri = Uri.parse(BASE).buildUpon()
+    public static URL buildURL(String lat, String lon) {
+        Uri uri = Uri.parse(CURRENT_BASE).buildUpon()
                 .appendQueryParameter(LAT, lat)
                 .appendQueryParameter(LON, lon)
                 .appendQueryParameter(APID, "a1597f52960fc0627bf6c27a9e23e0e3")
@@ -47,7 +42,7 @@ public class Network {
         return url;
     }
 
-    public static URL buildURL(String name, boolean current){
+    public static URL buildURL(String name, boolean current) {
         Uri uri = Uri.parse(CURRENT_BASE).buildUpon()
                 .appendQueryParameter(QUERY_PARAM, name)
                 .appendQueryParameter(APID, "a1597f52960fc0627bf6c27a9e23e0e3")
@@ -62,8 +57,8 @@ public class Network {
         return url;
     }
 
-    public static URL buildURL(String s){
-             Uri uri = Uri.parse(BASE).buildUpon()
+    public static URL buildURL(String s) {
+        Uri uri = Uri.parse(BASE).buildUpon()
                 .appendQueryParameter(QUERY_PARAM, s)
                 .appendQueryParameter(APID, "a1597f52960fc0627bf6c27a9e23e0e3")
                 .appendQueryParameter(UNITS, "metric")

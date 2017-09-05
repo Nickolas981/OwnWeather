@@ -1,7 +1,9 @@
 package com.donGumen.nickolas.ownweather;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private WeatherModel model;
     private Menu menu;
+    public static Activity activity;
     public static String name;
     SharedPreferences sharedPreferences;
 
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        activity = MainActivity.this;
         mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
         mRecyclerView.setHasFixedSize(true);
 
@@ -83,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         }else{
             loadWeather(name);
             getSupportActionBar().setTitle("OwnWeather (" + name + ")");
+        }
+        Location location = new GPSTracker(this).getLocation();
+        if (location != null){
+            Toast.makeText(this, "lat " + location.getLatitude() + "\nlon " + location.getLongitude(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -182,6 +189,54 @@ public class MainActivity extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(Network.buildURL(name))
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                return response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            if (s != null && !s.equals("")) {
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                model = WeatherJson.toWeatherModel(obj);
+                setAdapter(model);
+            }
+        }
+    }
+    class WeatherCDownloadTask extends AsyncTask<Void, Void, String> {
+        double lat, lon;
+
+
+        @Override
+        protected void onPreExecute() {
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            Location location  = new GPSTracker(MainActivity.activity).getLocation();
+            if (location != null){
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String latitude = Double.toString(lat);
+            String longtitude = Double.toString(lon);
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(Network.buildURL(latitude, longtitude))
                     .build();
             try {
                 Response response = client.newCall(request).execute();
